@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    unsigned int operation;
+    int temp_result;
+    size_t output_length;
+    char user_input[51]="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    char expected_output[51];
+    int i, j, b, c, jawab,jawa;
+
+    strncpy(expected_output, "lxpyrvmgduiprervmoqkvfqrblqpvqueeuzmpqgycirxthsjaw", 51);
+    
+
+    output_length = strlen(expected_output);
+    
+    for (b=0;b<output_length;b++) {
+        for (c=97;c<=122;c++) {
+            jawa=c;
+            jawab=c;
+            for (i = 0; i < 3; i++) {
+                
+            operation = (b % 0xff >> 1 & 0x55U) + (b % 0xff & 0x55U);
+            operation = ((int)operation >> 2 & 0x33U) + (operation & 0x33);
+            temp_result = ((int)operation >> 4) + jawab - 0x61 + (operation & 0xf);
+            jawab = (char)temp_result + (char)(temp_result / 0x1a) * -0x1a + 'a';
+                
+            }
+            if(jawab==expected_output[b]){
+                user_input[b]=jawa;
+                break;
+            }
+        }
+    }
+    
+    
+
+    printf("valid input: %s\n", user_input);
+    return 0;
+}
