@@ -23,7 +23,7 @@ for a in ips:
 print("Flags ditemukan:")
 print(flags)
 
-# Submit flag ke server pusat
+# Submit flag
 url = 'http://10.10.0.1/flags'
 headers = {
     'X-Team-Token': '475cdaad49200793',
@@ -31,7 +31,7 @@ headers = {
 }
 
 for flag in flags:
-    for attempt in range(3):  # Coba maksimal 3 kali kalau 429
+    for attempt in range(3):
         try:
             response = requests.put(url, headers=headers, json=[flag])
             if response.status_code == 200:
@@ -45,7 +45,7 @@ for flag in flags:
                     else:
                         print(f"[✗] Flag ditolak: {f}")
                         print(f"     Pesan: {msg}")
-                break  # Keluar dari retry loop
+                break 
             elif response.status_code == 429:
                 print(f"[!] Rate limit (429) saat kirim {flag}, tunggu 5 detik...")
                 time.sleep(5)
@@ -56,4 +56,4 @@ for flag in flags:
         except Exception as e:
             print(f"[!] Error submit flag {flag}: {e}")
             break
-    time.sleep(1)  # Delay antar flag, untuk hindari 429
+    time.sleep(1)  # Delay antar flag
