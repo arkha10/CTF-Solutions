@@ -1,0 +1,6 @@
+ctf-player@pico-chall$ ln -s /usr/bin/cat md5sum
+ctf-player@pico-chall$ export PATH="$(pwd):$PATH"
+ctf-player@pico-chall$ ./flaghasher
+Computing the MD5 hash of /root/flag.txt....
+
+picoCTF{sy5teM_b!n@riEs_4r3_5c@red_0f_yoU_5a6b64e2}
